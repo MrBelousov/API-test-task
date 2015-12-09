@@ -23,16 +23,17 @@ ActiveRecord::Schema.define(version: 20151209160123) do
   create_table "news", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "news_text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "email"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "password"
   end
 
