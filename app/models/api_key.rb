@@ -1,6 +1,8 @@
 class ApiKey < ActiveRecord::Base
+# Associations
   belongs_to :user
 
+# Creating a token
   before_create :generate_token
 
   private

@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209160123) do
+ActiveRecord::Schema.define(version: 20151210171610) do
 
   create_table "api_keys", force: :cascade do |t|
     t.string   "token"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "news_id"
+    t.string   "owner_name"
+    t.string   "comment_text"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "news", force: :cascade do |t|

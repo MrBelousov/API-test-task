@@ -1,7 +1,11 @@
 include ActionController::HttpAuthentication::Token::ControllerMethods
 include ActionController::MimeResponds
 
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
+  # Including Pundit for Authorization and divide users roles
+  include Pundit
+  protect_from_forgery
+
   private
 
   def restrict_access

@@ -1,23 +1,29 @@
 module Api
-  class NewsController < ApplicationController
+  class NewsController < BaseController
     before_filter :restrict_access, except: [:index, :show]
+    before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
     # GET /news
     def index
-      @news = News.all
-      render json: @news
+      @news = News.where(status: News.statuses[:published])
+      render(
+          json: ActiveModel::ArraySerializer.new(
+              @news,
+              each_serializer: NewsSerializer
+          )
+      )
     end
 
     # GET /news/1
     def show
       @news = News.find(params[:id])
-      render json: @news
+      render json: NewsSerializer.new(@news).to_json
     end
+
 
     # POST /news
     def create
       @news = News.new(news_params)
-
       if @news.save
         render json: @news
       else
@@ -44,7 +50,7 @@ module Api
     private
     # Only allow a trusted parameter "white list" through.
     def news_params
-      params.permit(:news_text)
+      params.permit(:news_text, :status, :user_id)
     end
 
   end
