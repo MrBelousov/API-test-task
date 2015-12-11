@@ -1,5 +1,14 @@
 module Api
   class UsersController < BaseController
+    # User authentication by api key
+    before_filter :restrict_access, except: [:index, :show]
+
+    # Checking permissions for actions
+    load_and_authorize_resource
+    skip_authorize_resource only: [:index, :show, :create]
+
+    # User authentications by email and token
+    # before_filter :authenticate_user!, except: [:show]
 
     # GET /users
     def index
@@ -21,7 +30,6 @@ module Api
     # POST /users
     def create
       @user = User.new(user_params)
-
       if @user.save
         render json: UserSerializer.new(@user).to_json
       else

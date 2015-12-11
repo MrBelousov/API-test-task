@@ -1,10 +1,11 @@
 include ActionController::HttpAuthentication::Token::ControllerMethods
 include ActionController::MimeResponds
+# When using rails-api, you have to manually include the controller methods for CanCan
+include CanCan::ControllerAdditions
 
 class ApplicationController < ActionController::Base
-  # Including Pundit for Authorization and divide users roles
-  include Pundit
-  protect_from_forgery
+  # Session methods
+  include SessionsHelper
 
   private
 

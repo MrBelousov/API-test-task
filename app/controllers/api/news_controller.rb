@@ -1,7 +1,14 @@
 module Api
   class NewsController < BaseController
+    # User authentication by api key
     before_filter :restrict_access, except: [:index, :show]
-    before_filter :authenticate_user!, only: [:create, :update, :destroy]
+
+    # Checking permissions for actions
+    load_and_authorize_resource
+    skip_authorize_resource only: [:index, :show]
+
+    # User authentications by email and token
+    # before_filter :authenticate_user!, only: [:update, :destroy]
 
     # GET /news
     def index
@@ -52,6 +59,5 @@ module Api
     def news_params
       params.permit(:news_text, :status, :user_id)
     end
-
   end
 end

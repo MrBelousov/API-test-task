@@ -4,12 +4,15 @@ module Api
       user = User.find_by(email: create_params[:email])
       if user && user.authenticate(create_params[:password])
         self.current_user = user
+
+        # Session expiring after 2 hours
+        session[:expires_at] = Time.current + 2.hours
         render(
             json: SessionSerializer.new(user, root: false).to_json,
             status: 201
         )
       else
-        return api_error(status: 401)
+        return error(status: 401)
       end
     end
 

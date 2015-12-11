@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     builder (3.2.2)
+    cancancan (1.13.1)
     concurrent-ruby (1.0.0)
     erubis (2.7.0)
     globalid (0.3.6)
@@ -59,8 +60,6 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
-    pundit (1.0.1)
-      activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -111,8 +110,8 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  cancancan (~> 1.10)
   jbuilder
-  pundit
   rails (= 4.2.5)
   rails-api
   spring

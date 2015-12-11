@@ -1,6 +1,14 @@
 module Api
   class CommentsController < BaseController
-    before_filter :authenticate_user!, only: [:update, :destroy]
+    # User authentication by api key
+    before_filter :restrict_access, only: :update
+
+    # Checking permissions for actions
+    load_and_authorize_resource
+    skip_authorize_resource only: [:index, :show, :create]
+
+    # User authentication by token and email
+    # before_filter :authenticate_user!, only: [:update, :destroy]
 
     # GET /comments
     def index
