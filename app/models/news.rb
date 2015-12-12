@@ -11,5 +11,5 @@ class News < ActiveRecord::Base
   }
 
   # Validations
-  validates :news_text, presence: true, length: { maximum: 140 }
+  validates :news_text, presence: true
 end

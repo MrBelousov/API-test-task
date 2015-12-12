@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   # Validation
   validates :first_name, length: { maximum: 20 }
+  validates :password, length: { minimum: 6 }
+  validates :email, email: true
 
   private
 

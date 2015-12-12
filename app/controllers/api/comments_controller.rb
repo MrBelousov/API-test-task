@@ -34,7 +34,7 @@ module Api
       if @comment.save
         render json: @comment
       else
-        render json: @comment.errors, status: :unprocessable_entity
+        render json: { errors: @comment.errors, error_code: 402 }, status: :unprocessable_entity
       end
     end
 
@@ -44,7 +44,7 @@ module Api
       if @comment.update(comment_params)
         render json: @comment
       else
-        render json: @comment.errors, status: :unprocessable_entity
+        render json: { errors: @comment.errors, error_code: 402 }, status: :unprocessable_entity
       end
     end
 

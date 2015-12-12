@@ -7,12 +7,22 @@ class ApplicationController < ActionController::Base
   # Session methods
   include SessionsHelper
 
+  # Disabling CSRF token for mobile applications
+  protect_from_forgery
+  skip_before_action :verify_authenticity_token, if: :json_request?
+
+  protected
+
+  def json_request?
+    request.format.json?
+  end
+
   private
 
   # Checking Api_key before actions
   def restrict_access
     unless restrict_access_by_params || restrict_access_by_header
-      render json: { message: 'Invalid API Token' }, status: 401
+      render json: { message: 'Invalid API Token', error_code: 401 }, status: 401
       return
     end
     @current_user = @api_key.user if @api_key

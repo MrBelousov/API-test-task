@@ -12,7 +12,7 @@ module Api
           status: 201
         )
       else
-        return error(status: 401)
+        render json: { message: 'Access allowed only for registered users.', error_code: 401 }, status: 401
       end
     end
 

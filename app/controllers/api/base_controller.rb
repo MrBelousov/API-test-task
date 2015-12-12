@@ -22,7 +22,7 @@ module Api
         # Sign out after 2 hours
         sign_out if session[:expires_at] < Time.current
       else
-        render json: { message: 'Unauthorized!' }, status: 401
+        render json: { message: 'Unauthorized!', error_code: 401 }, status: 401
       end
     end
 

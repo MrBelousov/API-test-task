@@ -4,8 +4,8 @@ module Api
     before_action :restrict_access, except: [:index, :show]
 
     # Checking permissions for actions
-    load_and_authorize_resource
-    skip_authorize_resource only: [:index, :show]
+    # load_and_authorize_resource
+    # skip_authorize_resource only: [:index, :show]
 
     # User authentications by email and token
     # before_filter :authenticate_user!, only: [:update, :destroy]
@@ -33,7 +33,7 @@ module Api
       if @news.save
         render json: @news
       else
-        render json: @news.errors, status: :unprocessable_entity
+        render json: { errors: @news.errors, error_code: 402 }, status: :unprocessable_entity
       end
     end
 
@@ -43,7 +43,7 @@ module Api
       if @news.update(news_params)
         render json: @news
       else
-        render json: @news.errors, status: :unprocessable_entity
+        render json: { errors: @news.errors, error_code: 402 }, status: :unprocessable_entity
       end
     end
 

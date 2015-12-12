@@ -20,6 +20,9 @@ gem 'jbuilder'
 # Serializing
 gem 'active_model_serializers'
 
+# Email validations
+gem 'email_validator'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

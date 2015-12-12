@@ -33,7 +33,7 @@ module Api
       if @user.save
         render json: UserSerializer.new(@user).to_json
       else
-        render json: @user.errors, status: :unprocessable_entity
+        render json: { errors: @user.errors, error_code: 402 }, status: :unprocessable_entity
       end
     end
 
@@ -43,7 +43,7 @@ module Api
       if @user.update(user_params)
         render json: UserSerializer.new(@user).to_json
       else
-        render json: @user.errors, status: :unprocessable_entity
+        render json: { errors: @user.errors, error_code: 402 }, status: :unprocessable_entity
       end
     end
 
