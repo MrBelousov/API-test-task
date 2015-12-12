@@ -1,7 +1,7 @@
 module Api
   class CommentsController < BaseController
     # User authentication by api key
-    before_filter :restrict_access, only: :update
+    before_action :restrict_access, only: :update
 
     # Checking permissions for actions
     load_and_authorize_resource
@@ -15,10 +15,10 @@ module Api
       @news = News.find(params[:news_id])
       @comments = @news.comments
       render(
-          json: ActiveModel::ArraySerializer.new(
-              @comments,
-              each_serializer: CommentSerializer
-          )
+        json: ActiveModel::ArraySerializer.new(
+          @comments,
+          each_serializer: CommentSerializer
+        )
       )
     end
 
@@ -55,6 +55,7 @@ module Api
     end
 
     private
+
     # Only allow a trusted parameter "white list" through.
     def comment_params
       params.permit(:owner_name, :comment_text, :news_id)

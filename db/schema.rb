@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210171610) do
+ActiveRecord::Schema.define(version: 20151212135903) do
 
   create_table "api_keys", force: :cascade do |t|
     t.string   "token"
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(version: 20151210171610) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "news_id"
+    t.integer  "user_id"
+    t.integer  "score",      default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ratings", ["comment_id"], name: "index_ratings_on_comment_id"
+  add_index "ratings", ["news_id"], name: "index_ratings_on_news_id"
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"

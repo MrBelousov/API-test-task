@@ -1,7 +1,7 @@
 module Api
   class UsersController < BaseController
     # User authentication by api key
-    before_filter :restrict_access, except: [:index, :show]
+    before_action :restrict_access, except: [:index, :show]
 
     # Checking permissions for actions
     load_and_authorize_resource
@@ -14,10 +14,10 @@ module Api
     def index
       @users = User.all
       render(
-          json: ActiveModel::ArraySerializer.new(
-              @users,
-              each_serializer: UserSerializer
-          )
+        json: ActiveModel::ArraySerializer.new(
+          @users,
+          each_serializer: UserSerializer
+        )
       )
     end
 
@@ -54,10 +54,10 @@ module Api
     end
 
     private
+
     # Only allow a trusted parameter "white list" through.
     def user_params
       params.permit(:first_name, :email, :password)
     end
-
   end
 end

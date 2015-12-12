@@ -9,9 +9,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Checking Api_key before actions
   def restrict_access
     unless restrict_access_by_params || restrict_access_by_header
-      render json: {message: 'Invalid API Token'}, status: 401
+      render json: { message: 'Invalid API Token' }, status: 401
       return
     end
     @current_user = @api_key.user if @api_key

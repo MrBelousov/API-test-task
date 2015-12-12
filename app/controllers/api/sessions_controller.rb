@@ -8,8 +8,8 @@ module Api
         # Session expiring after 2 hours
         session[:expires_at] = Time.current + 2.hours
         render(
-            json: SessionSerializer.new(user, root: false).to_json,
-            status: 201
+          json: SessionSerializer.new(user, root: false).to_json,
+          status: 201
         )
       else
         return error(status: 401)
@@ -17,6 +17,7 @@ module Api
     end
 
     private
+
     def create_params
       params.require(:user).permit(:email, :password)
     end

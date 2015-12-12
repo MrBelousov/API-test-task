@@ -1,8 +1,8 @@
 class ApiKey < ActiveRecord::Base
-# Associations
+  # Associations
   belongs_to :user
 
-# Creating a token
+  # Creating a token
   before_create :generate_token
 
   private
@@ -12,5 +12,4 @@ class ApiKey < ActiveRecord::Base
       self.token = SecureRandom.hex.to_s
     end while self.class.exists?(token: token)
   end
-
 end

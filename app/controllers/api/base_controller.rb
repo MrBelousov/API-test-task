@@ -1,30 +1,28 @@
 module Api
   class BaseController < ApplicationController
-    #protect_from_forgery with: :null_session
+    # protect_from_forgery with: :null_session
 
-    #before_action :destroy_session
+    # before_action :destroy_session
 
-    #def destroy_session
+    # def destroy_session
     #  request.session_options[:skip] = true
-    #end
+    # end
 
     private
 
     def authenticate_user!
       token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
 
-      user_email = options.blank?? nil : options[:email]
+      user_email = options.blank? ? nil : options[:email]
       user = user_email && User.find_by(email: user_email)
 
       if user && ActiveSupport::SecurityUtils.secure_compare(user.token, token)
         @current_user = user
 
         # Sign out after 2 hours
-        if session[:expires_at] < Time.current
-          sign_out
-        end
+        sign_out if session[:expires_at] < Time.current
       else
-        render json: {message: 'Unauthorized!'}, status: 401
+        render json: { message: 'Unauthorized!' }, status: 401
       end
     end
 
